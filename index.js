@@ -206,7 +206,7 @@ const logger = (payload = {}) => {
     msg = 'HTTP %s %s',
   } = payload;
 
-  const winstonLogger = payload.logger || new winston.Logger({ transports });
+  // const winstonLogger = payload.logger || new winston.Logger({ transports });
   const reqSerializer = serializer.req(payload);
   const resSerializer = serializer.res(payload);
 
@@ -215,6 +215,7 @@ const logger = (payload = {}) => {
     meta.duration = Date.now() - meta.started_at;
 
     const logLevel = getLogLevel(meta.res.status, level);
+    const winstonLogger = payload.logger || new winston.Logger({ transports });
     winstonLogger[logLevel](loggerMsg, meta);
   };
 
